@@ -1,8 +1,20 @@
 package com.bridgelabz.addressbook.services;
 
-import com.bridgelabz.addressbook.model.Person;
+import com.bridgelabz.addressbook.model.AddressDetails;
+import com.bridgelabz.addressbook.model.PersonDetails;
+
+import java.util.List;
 
 public interface IAddressBookService {
-    void addPerson(Person person, String filePath);
+    void addPerson(PersonDetails person, AddressDetails addressDetails, String filePath);
 
+    void updatePerson(PersonDetails person, AddressDetails addressDetails, String filePath);
+
+    void deletePerson(PersonDetails person, AddressDetails addressDetails, String filePath);
+
+    void sortByPersonName(String filePath);
+
+    void sortByPersonZipCode(String filePath);
+
+    List printEntries();
 }
