@@ -16,17 +16,16 @@ import java.util.ArrayList;
 public class AddressBookTest {
     AddressDetails addressDetails = null;
     ObjectMapper objectMapper = new ObjectMapper();
-    private static String testingFilePath = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources/AddressBook.jason";
+    private static String testFilePath = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources/AddressBook.jason";
 
     @Test
     public void givenPersonObject_IsWrittenToFile_ShouldReturnTrue() {
         try {
-            PersonDetails person = new PersonDetails("Dev", "Gupta", "Govandi", 8543922569L, new AddressDetails("Pune", "MAH", 411014L));
+            PersonDetails person = new PersonDetails("Dev", "Gupta", 8543922569L, new AddressDetails("Mumbai", "Govandi", "MAH", 411014L));
 
-            IAddressBookService iPersonServices = new AddressBookService();
-            // AddressDetails addressDetails = null;
-            iPersonServices.addPerson(person, addressDetails, testingFilePath);
-            ArrayList<PersonDetails> data = objectMapper.readValue(new File(testingFilePath), new TypeReference<ArrayList<PersonDetails>>() {
+            IAddressBookService iAddressBookService = new AddressBookService();
+            iAddressBookService.addPerson(person, addressDetails, testFilePath);
+            ArrayList<PersonDetails> data = objectMapper.readValue(new File(testFilePath), new TypeReference<ArrayList<PersonDetails>>() {
             });
             Assert.assertEquals(person.getFirstName(), data.get(1).getFirstName());
         } catch (IOException e) {
@@ -37,29 +36,59 @@ public class AddressBookTest {
     @Test
     public void givenPersonDtoObject_IfUpdateFile_ShouldReturnTrue() {
         try {
-            PersonDetails person = new PersonDetails("Raj", "Gupta", "Govandi", 8543922569L, new AddressDetails("Pune", "MAH", 411014L));
+            PersonDetails person = new PersonDetails("Raj", "Gupta", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
 
 
-            IAddressBookService iPersonServices = new AddressBookService();
-            iPersonServices.updatePerson(person, addressDetails, testingFilePath);
+            IAddressBookService iAddressBookService = new AddressBookService();
+            iAddressBookService.updatePerson(person, addressDetails, testFilePath);
 
-            ArrayList<PersonDetails> data = objectMapper.readValue(new File(testingFilePath), new TypeReference<ArrayList<PersonDetails>>() {
+            ArrayList<PersonDetails> data = objectMapper.readValue(new File(testFilePath), new TypeReference<ArrayList<PersonDetails>>() {
             });
             Assert.assertEquals(person.getFirstName(), data.get(1).getFirstName());
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
+
     @Test
     public void givenPersonObject_IfDeleted_ShouldReturnTrue() {
         try {
-            PersonDetails person = new PersonDetails("Dev", "Gupta", "Govandi", 8543922569L, new AddressDetails("Pune", "MAH", 411014L));
-            IAddressBookService iPersonServices = new AddressBookService();
-            iPersonServices.deletePerson(person,addressDetails,testingFilePath);
-
-            ArrayList<PersonDetails> data = objectMapper.readValue(new File(testingFilePath), new TypeReference<ArrayList<PersonDetails>>() {
+            PersonDetails person = new PersonDetails("xyz", "Gupta", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            IAddressBookService iAddressBookService = new AddressBookService();
+            iAddressBookService.deletePerson(person, addressDetails, testFilePath);
+            ArrayList<PersonDetails> data = objectMapper.readValue(new File(testFilePath), new TypeReference<ArrayList<PersonDetails>>() {
             });
-            Assert.assertEquals(true,data.isEmpty());
+            Assert.assertEquals(true, data.isEmpty());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void Testing_SortByName_Method_IfSorted_ShouldReturnTrue() {
+        try {
+            ArrayList<PersonDetails> sortingList = new ArrayList<>();
+
+            PersonDetails person0 = new PersonDetails("zeba", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails person1 = new PersonDetails("bhanu", "Khan", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails person2 = new PersonDetails("rahul", "Gupta", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails person3 = new PersonDetails("abhi", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            sortingList.add(person0);
+            sortingList.add(person1);
+            sortingList.add(person2);
+            sortingList.add(person3);
+            objectMapper.writeValue(new File(testFilePath), sortingList);
+
+            IAddressBookService iAddressBookService = new AddressBookService();
+            iAddressBookService.sortByPersonName(testFilePath);
+            ArrayList<PersonDetails> data = objectMapper.readValue(new File(testFilePath), new TypeReference<ArrayList<PersonDetails>>() {
+            });
+
+            Assert.assertEquals(sortingList.get(3).getFirstName(), data.get(0).getFirstName());
+            Assert.assertEquals(sortingList.get(1).getFirstName(), data.get(1).getFirstName());
+            Assert.assertEquals(sortingList.get(2).getFirstName(), data.get(2).getFirstName());
+            Assert.assertEquals(sortingList.get(0).getFirstName(), data.get(3).getFirstName());
+
         } catch (IOException e) {
             e.printStackTrace();
         }
