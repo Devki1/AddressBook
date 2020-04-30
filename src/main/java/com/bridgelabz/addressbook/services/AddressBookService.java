@@ -5,6 +5,7 @@ import com.bridgelabz.addressbook.model.PersonDetails;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 public class AddressBookService implements IAddressBookService {
@@ -28,7 +29,7 @@ public class AddressBookService implements IAddressBookService {
             for (PersonDetails personDetails : fileData) {
                // if (personDetails.equalsIgnoreCase(personDetails.getLastName()))
                     if (personDetails.getFirstName().equalsIgnoreCase(personDetails.getFirstName())) {
-                        personDetails.setAddress(personDetails.getAddress());
+                        personDetails.setAddressDetailsObject(personDetails.getAddressDetailsObject());
                         addressDetails.setCity(addressDetails.getCity());
                         addressDetails.setState(addressDetails.getState());
                         addressDetails.setZip(addressDetails.getZip());
@@ -61,9 +62,14 @@ public class AddressBookService implements IAddressBookService {
 
     @Override
     public void sortByPersonName(String filePath) {
-
+        try {
+            ArrayList<PersonDetails> fileData = fileSystem.readFile(filePath);
+            fileData.sort(Comparator.comparing(PersonDetails::getFirstName));
+            fileSystem.writeFile(fileData, filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
-
     @Override
     public void sortByPersonZipCode(String filePath) {
 
