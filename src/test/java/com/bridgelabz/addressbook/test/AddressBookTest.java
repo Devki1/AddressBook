@@ -123,22 +123,39 @@ public class AddressBookTest {
         Boolean result = iAddressBookFeatures.createAddressBook("Delta.json");
         Assert.assertEquals(true, result);
     }
+
     @Test
     public void ifGiven_OpenAddressBook_OpenFile_ShouldReturnTrue() {
         IAddressBookService iAddressBookFeatures = new AddressBookService();
         Boolean result = iAddressBookFeatures.openExistingAddressBook("Delta.json");
         Assert.assertEquals(true, result);
     }
+
     @Test
     public void ForPersonDetails_deletesFileWhenAlreadyPresent() throws IOException {
         String result = iAddressBookService.deleteFile("Delta.json");
-        Assert.assertEquals("file deleted successfully",result);
+        Assert.assertEquals("file deleted successfully", result);
     }
 
     @Test
     public void ForPersonDetails_deletesFileWhenAlreadyPresentShouldReturnFalse_ifNotPresent() throws IOException {
         String result = iAddressBookService.deleteFile("abc.json");
-        Assert.assertEquals("file not found to delete",result);
+        Assert.assertEquals("file not found to delete", result);
+    }
+
+    @Test
+    public void testing_For_Save_AddressBook_Method() {
+        ArrayList<PersonDetails> entriesList = new ArrayList<>();
+        PersonDetails personDetail0 = new PersonDetails("zeba", "khan", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+        PersonDetails personDetail1 = new PersonDetails("gyan", "kumar", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+        PersonDetails personDetail2 = new PersonDetails("rahul", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+        entriesList.add(personDetail0);
+        entriesList.add(personDetail1);
+        entriesList.add(personDetail2);
+        IAddressBookService iAddressBookService = new AddressBookService();
+        iAddressBookService.saveAddressBook(testFilePath, entriesList);
+        Assert.assertEquals(entriesList.get(0), personDetail0);
+        Assert.assertEquals(entriesList.get(1), personDetail1);
+        Assert.assertEquals(entriesList.get(2), personDetail2);
     }
 }
-
