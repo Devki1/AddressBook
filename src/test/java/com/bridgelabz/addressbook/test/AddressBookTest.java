@@ -98,8 +98,8 @@ public class AddressBookTest {
     public void testingOf_PrintEntries_Method() {
         try {
             ArrayList<PersonDetails> entriesList = new ArrayList<>();
-            PersonDetails personDetails0 = new PersonDetails("zeba", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
-            PersonDetails personDetails1 = new PersonDetails("bhanu", "Khan", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails personDetails0 = new PersonDetails("zeba", "Khan", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails personDetails1 = new PersonDetails("bhanu", "Gupta", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
             PersonDetails personDetails2 = new PersonDetails("rahul", "Gupta", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
             PersonDetails personDetails3 = new PersonDetails("abhi", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
             entriesList.add(personDetails0);
@@ -164,5 +164,20 @@ public class AddressBookTest {
         iAddressBookService.addPerson(personDetails, addressDetails, testFilePath);
         boolean isSaveData = iAddressBookService.saveAsAddressBook(testFilePath, personDetails);
         Assert.assertTrue(isSaveData);
+    }
+
+    @Test
+    public void givenAddressBook_whenExit() {
+        PersonDetails personDetails = new PersonDetails("bhanu", "Gupta", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+        iAddressBookService.addPerson(personDetails, addressDetails, testFilePath);
+        try {
+            ArrayList<PersonDetails> data = objectMapper.
+                    readValue(new File(testFilePath), new TypeReference<ArrayList<PersonDetails>>() {
+                    });
+            iAddressBookService.saveAddressBook(testFilePath, data);
+            iAddressBookService.quitAddressBook();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
