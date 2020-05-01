@@ -3,6 +3,7 @@ package com.bridgelabz.addressbook.services;
 import com.bridgelabz.addressbook.model.AddressDetails;
 import com.bridgelabz.addressbook.model.PersonDetails;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface IAddressBookService {
@@ -14,7 +15,9 @@ public interface IAddressBookService {
 
     void sortByPersonName(String filePath);
 
+    List printEntries(String filePath);
+
     void sortByPersonZipCode(String filePath);
 
-    List printEntries();
+ //   public String createNewFile(String destinationFolder, String fileName) throws IOException;
 }
