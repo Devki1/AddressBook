@@ -3,13 +3,16 @@ package com.bridgelabz.addressbook.services;
 import com.bridgelabz.addressbook.model.AddressDetails;
 import com.bridgelabz.addressbook.model.PersonDetails;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class AddressBookService implements IAddressBookService {
+   // static String testFilePath = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources/AddressBook.json";
     FileSystem fileSystem = new FileSystem();
+   // static String destinationFile = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources";
 
     @Override
     public void addPerson(PersonDetails person, AddressDetails addressDetails, String filePath) {
@@ -24,16 +27,16 @@ public class AddressBookService implements IAddressBookService {
 
     @Override
     public void updatePerson(PersonDetails person, AddressDetails addressDetails, String filePath) {
- try {
+        try {
             ArrayList<PersonDetails> fileData = fileSystem.readFile(filePath);
             for (PersonDetails personDetails : fileData) {
-               // if (personDetails.equalsIgnoreCase(personDetails.getLastName()))
-                    if (personDetails.getFirstName().equalsIgnoreCase(personDetails.getFirstName())) {
-                        personDetails.setAddressDetailsObject(personDetails.getAddressDetailsObject());
-                        addressDetails.setCity(addressDetails.getCity());
-                        addressDetails.setState(addressDetails.getState());
-                        addressDetails.setZip(addressDetails.getZip());
-                    }
+                // if (personDetails.equalsIgnoreCase(personDetails.getLastName()))
+                if (personDetails.getFirstName().equalsIgnoreCase(personDetails.getFirstName())) {
+                    personDetails.setAddressDetailsObject(personDetails.getAddressDetailsObject());
+                    addressDetails.setCity(addressDetails.getCity());
+                    addressDetails.setState(addressDetails.getState());
+                    addressDetails.setZip(addressDetails.getZip());
+                }
             }
             fileSystem.writeFile(fileData, filePath);
         } catch (IOException e) {
@@ -57,9 +60,7 @@ public class AddressBookService implements IAddressBookService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
-
     @Override
     public void sortByPersonName(String filePath) {
         try {
@@ -70,13 +71,20 @@ public class AddressBookService implements IAddressBookService {
             e.printStackTrace();
         }
     }
+
     @Override
     public void sortByPersonZipCode(String filePath) {
-
     }
-
     @Override
-    public List printEntries() {
+    public List printEntries(String filePath) {
+        try {
+            ArrayList<PersonDetails> fileData = fileSystem.readFile(filePath);
+            fileData.forEach(System.out::println);
+            return fileData;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         return null;
     }
 }
+
