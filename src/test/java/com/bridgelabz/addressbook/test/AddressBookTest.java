@@ -17,7 +17,7 @@ public class AddressBookTest {
     AddressDetails addressDetails = null;
     ObjectMapper objectMapper = new ObjectMapper();
     IAddressBookService iAddressBookService = new AddressBookService();
-    public static String destinationFile = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources";
+    //  static String destinationFile = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources";
     private static String testFilePath = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources/AddressBook.json";
 
     @Test
@@ -116,9 +116,17 @@ public class AddressBookTest {
             e.printStackTrace();
         }
     }
+
     @Test
-    public void ForPersonDetails_checkIfFileIsCreated() throws IOException {
-        String result = iAddressBookService.createNewFile("destinationFile","Details2.json");
-        Assert.assertEquals("True",result);
+    public void ifGiven_CreateAddressBook_CreateFile_ShouldReturnTrue() throws IOException {
+        IAddressBookService iAddressBookFeatures = new AddressBookService();
+        Boolean result = iAddressBookFeatures.createAddressBook("Delta.json");
+        Assert.assertEquals(true, result);
+    }
+    @Test
+    public void ifGiven_OpenAddressBook_OpenFile_ShouldReturnTrue() {
+        IAddressBookService iAddressBookFeatures = new AddressBookService();
+        Boolean result = iAddressBookFeatures.openExistingAddressBook("Delta.json");
+        Assert.assertEquals(true, result);
     }
 }
