@@ -1,21 +1,17 @@
 package com.bridgelabz.addressbook.model;
 
 public class PersonDetails {
-
     private String firstName;
     private String lastName;
-    private String address;
     private Long contact;
     AddressDetails addressDetailsObject;
 
     public PersonDetails() {
     }
 
-    public PersonDetails(String firstName, String lastName, String address, Long contact,
-                         AddressDetails addressDetailsObject) {
+    public PersonDetails(String firstName, String lastName, Long contact, AddressDetails addressDetailsObject) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.address = address;
         this.contact = contact;
         this.addressDetailsObject = addressDetailsObject;
     }
@@ -34,14 +30,6 @@ public class PersonDetails {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public Long getContact() {
@@ -65,11 +53,7 @@ public class PersonDetails {
         return "PersonDetailsPojo{" +
                 "firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
-                ", address='" + address + '\'' +
                 ", contact='" + contact + '\'' +
-                ", addressDetailsObject=" + addressDetailsObject +
-                '}';
+                ", addressDetailsObject=" + addressDetailsObject + '}';
     }
-
-
 }
