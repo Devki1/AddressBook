@@ -116,4 +116,9 @@ public class AddressBookTest {
             e.printStackTrace();
         }
     }
+    @Test
+    public void ForPersonDetails_checkIfFileIsCreated() throws IOException {
+        String result = iAddressBookService.createNewFile("destinationFile","Details2.json");
+        Assert.assertEquals("True",result);
+    }
 }
