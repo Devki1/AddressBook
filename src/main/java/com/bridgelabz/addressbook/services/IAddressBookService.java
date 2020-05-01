@@ -16,8 +16,6 @@ public interface IAddressBookService {
     void sortByPersonName(String filePath);
 
     List printEntries(String filePath);
-
-    void sortByPersonZipCode(String filePath);
-
-    public String createNewFile(String destinationFolder, String fileName) throws IOException;
+    Boolean createAddressBook(String fileName);
+    Boolean openExistingAddressBook(String fileName);
 }
