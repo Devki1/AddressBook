@@ -72,6 +72,7 @@ public class AddressBookService implements IAddressBookService {
             e.printStackTrace();
         }
     }
+
     @Override
     public List printEntries(String filePath) {
         try {
@@ -86,27 +87,36 @@ public class AddressBookService implements IAddressBookService {
 
     @Override
     public Boolean createAddressBook(String fileName) {
-            File file = new File(fileFolderDestination + fileName );
-            try {
-                if (file.createNewFile()) {
-                    System.out.println("File is created!");
-                    return true;
-                } else {
-                    System.out.println("File already exists.");
-                    return false;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+        File file = new File(fileFolderDestination + fileName);
+        try {
+            if (file.createNewFile()) {
+                System.out.println("File is created!");
+                return true;
+            } else {
+                System.out.println("File already exists.");
+                return false;
             }
-            return null;
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return null;
+    }
 
     @Override
     public Boolean openExistingAddressBook(String fileName) {
-        File openFile = new File(fileFolderDestination + fileName );
+        File openFile = new File(fileFolderDestination + fileName);
         if (openFile.exists())
             return true;
         return false;
     }
+
+    @Override
+    public String deleteFile(String fileName) {
+        File openFile = new File(fileFolderDestination + fileName);
+        if (openFile.delete())
+            return "file deleted successfully";
+        else
+            return "file not found to delete";
     }
+}
 
