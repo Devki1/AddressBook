@@ -5,12 +5,14 @@ import com.bridgelabz.addressbook.model.PersonDetails;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 
 public class AddressBookService implements IAddressBookService {
     FileSystem fileSystem = new FileSystem();
+    String fileFolderDestination = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources/";
 
     @Override
     public void addPerson(PersonDetails person, AddressDetails addressDetails, String filePath) {
@@ -70,11 +72,6 @@ public class AddressBookService implements IAddressBookService {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void sortByPersonZipCode(String filePath) {
-    }
-
     @Override
     public List printEntries(String filePath) {
         try {
@@ -88,21 +85,28 @@ public class AddressBookService implements IAddressBookService {
     }
 
     @Override
-    public String createNewFile(String destinationFile, String fileName) throws IOException {
-        String destinationFolder = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources";
-        String fullPath = destinationFolder + fileName;
-        try {
-            File file = new File(fullPath);
-            if (file.createNewFile())
-                return "True";
-            else
-                return "False";
-
-        } catch (IOException e) {
-            e.printStackTrace();
+    public Boolean createAddressBook(String fileName) {
+            File file = new File(fileFolderDestination + fileName );
+            try {
+                if (file.createNewFile()) {
+                    System.out.println("File is created!");
+                    return true;
+                } else {
+                    System.out.println("File already exists.");
+                    return false;
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return null;
         }
-        return null;
-    }
-}
 
+    @Override
+    public Boolean openExistingAddressBook(String fileName) {
+        File openFile = new File(fileFolderDestination + fileName );
+        if (openFile.exists())
+            return true;
+        return false;
+    }
+    }
 
