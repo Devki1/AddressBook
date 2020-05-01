@@ -17,19 +17,17 @@ public class AddressBookTest {
     AddressDetails addressDetails = null;
     ObjectMapper objectMapper = new ObjectMapper();
     IAddressBookService iAddressBookService = new AddressBookService();
-    //  static String destinationFile = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources";
     private static String testFilePath = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources/AddressBook.json";
 
     @Test
     public void givenPersonObject_IsWrittenToFile_ShouldReturnTrue() {
         try {
-            PersonDetails person = new PersonDetails("Dev", "Gupta", 8543922569L, new AddressDetails("Mumbai", "Govandi", "MAH", 411014L));
-
+            PersonDetails personDetails = new PersonDetails("Dev", "Gupta", 8543922569L, new AddressDetails("Mumbai", "Govandi", "MAH", 411014L));
             IAddressBookService iAddressBookService = new AddressBookService();
-            iAddressBookService.addPerson(person, addressDetails, testFilePath);
+            iAddressBookService.addPerson(personDetails, addressDetails, testFilePath);
             ArrayList<PersonDetails> data = objectMapper.readValue(new File(testFilePath), new TypeReference<ArrayList<PersonDetails>>() {
             });
-            Assert.assertEquals(person.getFirstName(), data.get(1).getFirstName());
+            Assert.assertEquals(personDetails.getFirstName(), data.get(1).getFirstName());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -55,9 +53,9 @@ public class AddressBookTest {
     @Test
     public void givenPersonObject_IfDeleted_ShouldReturnTrue() {
         try {
-            PersonDetails person = new PersonDetails("xyz", "Gupta", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails personDetails = new PersonDetails("xyz", "Gupta", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
             IAddressBookService iAddressBookService = new AddressBookService();
-            iAddressBookService.deletePerson(person, addressDetails, testFilePath);
+            iAddressBookService.deletePerson(personDetails, addressDetails, testFilePath);
             ArrayList<PersonDetails> data = objectMapper.readValue(new File(testFilePath), new TypeReference<ArrayList<PersonDetails>>() {
             });
             Assert.assertEquals(true, data.isEmpty());
@@ -71,14 +69,14 @@ public class AddressBookTest {
         try {
             ArrayList<PersonDetails> sortingList = new ArrayList<>();
 
-            PersonDetails person0 = new PersonDetails("zeba", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
-            PersonDetails person1 = new PersonDetails("bhanu", "Khan", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
-            PersonDetails person2 = new PersonDetails("rahul", "Gupta", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
-            PersonDetails person3 = new PersonDetails("abhi", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
-            sortingList.add(person0);
-            sortingList.add(person1);
-            sortingList.add(person2);
-            sortingList.add(person3);
+            PersonDetails personDetails0 = new PersonDetails("zeba", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails personDetails1 = new PersonDetails("bhanu", "Khan", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails personDetails2 = new PersonDetails("rahul", "Gupta", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails personDetails3 = new PersonDetails("abhi", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            sortingList.add(personDetails0);
+            sortingList.add(personDetails1);
+            sortingList.add(personDetails2);
+            sortingList.add(personDetails3);
             objectMapper.writeValue(new File(testFilePath), sortingList);
 
             IAddressBookService iAddressBookService = new AddressBookService();
@@ -100,14 +98,14 @@ public class AddressBookTest {
     public void testingOf_PrintEntries_Method() {
         try {
             ArrayList<PersonDetails> entriesList = new ArrayList<>();
-            PersonDetails person0 = new PersonDetails("zeba", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
-            PersonDetails person1 = new PersonDetails("bhanu", "Khan", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
-            PersonDetails person2 = new PersonDetails("rahul", "Gupta", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
-            PersonDetails person3 = new PersonDetails("abhi", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
-            entriesList.add(person0);
-            entriesList.add(person1);
-            entriesList.add(person2);
-            entriesList.add(person3);
+            PersonDetails personDetails0 = new PersonDetails("zeba", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails personDetails1 = new PersonDetails("bhanu", "Khan", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails personDetails2 = new PersonDetails("rahul", "Gupta", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails personDetails3 = new PersonDetails("abhi", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            entriesList.add(personDetails0);
+            entriesList.add(personDetails1);
+            entriesList.add(personDetails2);
+            entriesList.add(personDetails3);
             objectMapper.writeValue(new File(testFilePath), entriesList);
 
             IAddressBookService iPersonServices = new AddressBookService();
@@ -157,5 +155,14 @@ public class AddressBookTest {
         Assert.assertEquals(entriesList.get(0), personDetail0);
         Assert.assertEquals(entriesList.get(1), personDetail1);
         Assert.assertEquals(entriesList.get(2), personDetail2);
+    }
+
+    @Test
+    public void givenPersonInformation_whenSaveAsAddressBook_shouldReturnTrue() {
+        PersonDetails personDetails = new PersonDetails("abhi", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+        IAddressBookService iAddressBookService = new AddressBookService();
+        iAddressBookService.addPerson(personDetails, addressDetails, testFilePath);
+        boolean isSaveData = iAddressBookService.saveAsAddressBook(testFilePath, personDetails);
+        Assert.assertTrue(isSaveData);
     }
 }
