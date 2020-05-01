@@ -23,7 +23,9 @@ public interface IAddressBookService {
 
     String deleteFile(String fileName);
 
-    public void saveAddressBook(String path, ArrayList<PersonDetails> data);
+    public void saveAddressBook(String path, ArrayList<PersonDetails> fileData);
 
     public boolean saveAsAddressBook(String filePath, PersonDetails personDetails);
+
+    public void quitAddressBook();
 }
