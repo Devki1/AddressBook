@@ -16,7 +16,9 @@ import java.util.ArrayList;
 public class AddressBookTest {
     AddressDetails addressDetails = null;
     ObjectMapper objectMapper = new ObjectMapper();
-    private static String testFilePath = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources/AddressBook.jason";
+    IAddressBookService iAddressBookService = new AddressBookService();
+    public static String destinationFile = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources";
+    private static String testFilePath = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources/AddressBook.json";
 
     @Test
     public void givenPersonObject_IsWrittenToFile_ShouldReturnTrue() {
@@ -89,6 +91,27 @@ public class AddressBookTest {
             Assert.assertEquals(sortingList.get(2).getFirstName(), data.get(2).getFirstName());
             Assert.assertEquals(sortingList.get(0).getFirstName(), data.get(3).getFirstName());
 
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Test
+    public void testingOf_PrintEntries_Method() {
+        try {
+            ArrayList<PersonDetails> entriesList = new ArrayList<>();
+            PersonDetails person0 = new PersonDetails("zeba", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails person1 = new PersonDetails("bhanu", "Khan", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails person2 = new PersonDetails("rahul", "Gupta", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            PersonDetails person3 = new PersonDetails("abhi", "Singh", 8543922569L, new AddressDetails("Pune", "Govandi", "MAH", 411014L));
+            entriesList.add(person0);
+            entriesList.add(person1);
+            entriesList.add(person2);
+            entriesList.add(person3);
+            objectMapper.writeValue(new File(testFilePath), entriesList);
+
+            IAddressBookService iPersonServices = new AddressBookService();
+            iPersonServices.printEntries(testFilePath);
         } catch (IOException e) {
             e.printStackTrace();
         }
