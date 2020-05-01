@@ -18,4 +18,5 @@ public interface IAddressBookService {
     List printEntries(String filePath);
     Boolean createAddressBook(String fileName);
     Boolean openExistingAddressBook(String fileName);
+    String deleteFile( String fileName);
 }
