@@ -10,9 +10,7 @@ import java.util.Comparator;
 import java.util.List;
 
 public class AddressBookService implements IAddressBookService {
-   // static String testFilePath = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources/AddressBook.json";
     FileSystem fileSystem = new FileSystem();
-   // static String destinationFile = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources";
 
     @Override
     public void addPerson(PersonDetails person, AddressDetails addressDetails, String filePath) {
@@ -61,6 +59,7 @@ public class AddressBookService implements IAddressBookService {
             e.printStackTrace();
         }
     }
+
     @Override
     public void sortByPersonName(String filePath) {
         try {
@@ -75,6 +74,7 @@ public class AddressBookService implements IAddressBookService {
     @Override
     public void sortByPersonZipCode(String filePath) {
     }
+
     @Override
     public List printEntries(String filePath) {
         try {
@@ -86,5 +86,23 @@ public class AddressBookService implements IAddressBookService {
         }
         return null;
     }
+
+    @Override
+    public String createNewFile(String destinationFile, String fileName) throws IOException {
+        String destinationFolder = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources";
+        String fullPath = destinationFolder + fileName;
+        try {
+            File file = new File(fullPath);
+            if (file.createNewFile())
+                return "True";
+            else
+                return "False";
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 }
+
 
