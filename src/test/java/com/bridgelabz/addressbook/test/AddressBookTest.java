@@ -129,4 +129,16 @@ public class AddressBookTest {
         Boolean result = iAddressBookFeatures.openExistingAddressBook("Delta.json");
         Assert.assertEquals(true, result);
     }
+    @Test
+    public void ForPersonDetails_deletesFileWhenAlreadyPresent() throws IOException {
+        String result = iAddressBookService.deleteFile("Delta.json");
+        Assert.assertEquals("file deleted successfully",result);
+    }
+
+    @Test
+    public void ForPersonDetails_deletesFileWhenAlreadyPresentShouldReturnFalse_ifNotPresent() throws IOException {
+        String result = iAddressBookService.deleteFile("abc.json");
+        Assert.assertEquals("file not found to delete",result);
+    }
 }
+
