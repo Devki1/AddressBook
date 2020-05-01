@@ -126,4 +126,19 @@ public class AddressBookService implements IAddressBookService {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public boolean saveAsAddressBook(String filePath, PersonDetails personDetails) {
+        try {
+            ArrayList<PersonDetails> fileData = fileSystem.readFile(filePath);
+            if (fileData.isEmpty())
+                return false;
+            fileSystem.writeFile(fileData, filePath);
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
 }
+
