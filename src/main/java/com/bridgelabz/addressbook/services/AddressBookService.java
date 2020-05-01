@@ -140,5 +140,11 @@ public class AddressBookService implements IAddressBookService {
         }
         return false;
     }
+
+    @Override
+    public void quitAddressBook() {
+        System.out.println("Exit..");
+        System.exit(0);
+    }
 }
 
