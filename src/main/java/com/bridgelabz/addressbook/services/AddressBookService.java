@@ -13,6 +13,7 @@ public class AddressBookService implements IAddressBookService {
     FileSystem fileSystem = new FileSystem();
     String fileFolderDestination = "/home/user/IdeaProjects/AddressBookProblem/src/main/resources/";
 
+    //This method is used to add person detail informatiion.
     @Override
     public void addPerson(PersonDetails person, AddressDetails addressDetails, String filePath) {
         try {
@@ -24,6 +25,7 @@ public class AddressBookService implements IAddressBookService {
         }
     }
 
+    //This method is used to update person information.
     @Override
     public void updatePerson(PersonDetails person, AddressDetails addressDetails, String filePath) {
         try {
@@ -43,6 +45,7 @@ public class AddressBookService implements IAddressBookService {
         }
     }
 
+    // This method is used to delete person information.
     @Override
     public void deletePerson(PersonDetails person, AddressDetails addressDetails, String filePath) {
         try {
@@ -61,6 +64,7 @@ public class AddressBookService implements IAddressBookService {
         }
     }
 
+    // This method is used to sort data by name
     @Override
     public void sortByPersonName(String filePath) {
         try {
@@ -72,6 +76,7 @@ public class AddressBookService implements IAddressBookService {
         }
     }
 
+    // This method is used to print entries data.
     @Override
     public List printEntries(String filePath) {
         try {
@@ -84,6 +89,7 @@ public class AddressBookService implements IAddressBookService {
         return null;
     }
 
+    // This method is used to create new json file.
     @Override
     public Boolean createAddressBook(String fileName) {
         File file = new File(fileFolderDestination + fileName);
@@ -101,6 +107,7 @@ public class AddressBookService implements IAddressBookService {
         return null;
     }
 
+    // This method is used to open existing data of from address book.
     @Override
     public Boolean openExistingAddressBook(String fileName) {
         File openFile = new File(fileFolderDestination + fileName);
@@ -109,6 +116,7 @@ public class AddressBookService implements IAddressBookService {
         return false;
     }
 
+    //This method is used to delete the file
     @Override
     public String deleteFile(String fileName) {
         File openFile = new File(fileFolderDestination + fileName);
@@ -118,6 +126,7 @@ public class AddressBookService implements IAddressBookService {
             return "file not found to delete";
     }
 
+    //This method is used to save data of address book
     @Override
     public void saveAddressBook(String path, ArrayList<PersonDetails> dataList) {
         try {
@@ -127,6 +136,7 @@ public class AddressBookService implements IAddressBookService {
         }
     }
 
+    //This method is used to save as data of address book
     @Override
     public boolean saveAsAddressBook(String filePath, PersonDetails personDetails) {
         try {
@@ -141,6 +151,7 @@ public class AddressBookService implements IAddressBookService {
         return false;
     }
 
+    // This method is used to exit  from address book.
     @Override
     public void quitAddressBook() {
         System.out.println("Exit..");
